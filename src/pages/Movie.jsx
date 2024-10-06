@@ -21,7 +21,7 @@ function Movie() {
 
             const movieUrl = id
                 ? `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}`
-                : `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`;
+                : `https://api.themoviedb.org/3/movie/popular?limit=10&api_key=${apiKey}`;
                 
             const genreUrl = `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}`;
 
@@ -33,7 +33,7 @@ function Movie() {
 
             console.log(movieRes)
             // Set movie data
-            setData(id ? movieRes : movieRes.results);
+            setData(id ? movieRes : movieRes.results.slice(0, 10));
             setGenre(genreRes.genres);
         } catch (error) {
             setError("Failed to fetch data");

@@ -5,7 +5,7 @@ function Home() {
         <div className="h-[65svh] flex flex-col justify-center items-center p-4">
             <p className="text-center text-xl font-normal">
                 <span className="font-extrabold text-6xl text-neutral-600 capitalize">
-                    Welcome to MABS Lister!
+                    Welcome to EpicLibrary!
                 </span>
             </p>
             <p className="text-center text-2xl font-normal text-neutral-600 capitalize">

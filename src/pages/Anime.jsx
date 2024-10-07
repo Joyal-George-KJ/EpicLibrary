@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Image from "../assets/images/anime.jpg";
 import AnimeCard from "../components/AnimeCard";
 import { useParams } from "react-router-dom";
+import SearchBar from "../components/SearchBar";
 
 function Anime() {
     const { id } = useParams();
@@ -33,7 +34,7 @@ function Anime() {
             console.log(movieRes);
 
             // Set movie data
-            setData(movieRes.data);
+            setData(movieRes.data.slice(0, 10));
             setGenre(genreRes.genres);
         } catch (error) {
             setError("Failed to fetch data");
@@ -57,22 +58,24 @@ function Anime() {
     return (
         <div className="flex flex-col p-4">
             {/* Anime Information */}
-            <div className="flex border-b p-4 items-center">
-                <img src={Image} className="w-1/5 shadow p-2 border" alt="Anime" />
+            <div className="flex items-center p-4 border-b">
+                <img src={Image} className="w-1/5 p-2 border shadow" alt="Anime" />
                 <div className="pl-4">
-                    <span className="text-start font-extrabold text-2xl text-neutral-600 capitalize">
+                    <span className="text-2xl font-extrabold capitalize text-start text-neutral-600">
                         Anime:
                     </span>
-                    <p className="text-start text-xl font-normal capitalize">
+                    <p className="text-xl font-normal capitalize text-start">
                         Animated TV shows and films, primarily from Japan, known for unique art styles and diverse storytelling.
                     </p>
                 </div>
             </div>
+            
+            <SearchBar />
 
             {/* Popular Anime */}
-            <p className="text-center font-medium text-xl text-neutral-600 capitalize pt-4">
+            {location.pathname === '/animes' && <p className="pt-4 text-xl font-medium text-center capitalize text-neutral-600">
                 Popular Anime
-            </p>
+            </p>}
 
             {/* Card Container */}
             <div className={`card-container py-4 grid  flex-wrap gap-4 justify-center ${!Array.isArray(data) ? 'grid-cols-1' : 'grid-cols-5'}`}>

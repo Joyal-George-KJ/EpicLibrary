@@ -2,7 +2,62 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import RatingStarImage from "../assets/images/star.png";
 
-function AnimeCard({
+function getImageLink(imageURL, route) {
+    if (route === "movie") {
+        return `https://image.tmdb.org/t/p/original/${image}`;
+    } else {
+        return !imageURL
+            ? "https://t4.ftcdn.net/jpg/07/95/29/45/360_F_795294547_gaBzWLhkAYBSz1ZUIZssHhvzGzstNmHK.jpg"
+            : imageURL;
+    }
+}
+
+function setValues(value, route) {
+    if (route === "movie") {
+        return {
+            title: value.title,
+            image: `https://image.tmdb.org/t/p/original/${value.image}`,
+            description: value.overview,
+            genre: value.genres,
+            status: value.status === "Released" ? "Finished" : "Production",
+            release_date: value.release_date,
+            homepage: value.homepage,
+            budget: value.budget,
+            language: value.original_language,
+            restricted: value.adult,
+            tagline: value.tagline,
+            rating: value.vote_average,
+            duration: value.runtime
+        }
+    }
+    else if (route === "anime") {
+        return {
+            title: value.title_english,
+            image: value.images.jpg.image_url,
+            description: value.synopsis,
+            genre: value.genres,
+            status: value.airing ? "Ongoing" : "Finished",
+            release_date: value.aired.to,
+            homepage: value.url,
+            budget: '???',
+            language: ["Japanese"],
+            restricted: value.rating,
+            tagline: value.title,
+            rating: value.score,
+            duration: value.duration
+        }
+    }
+    else if (route === "series") {
+        
+    }
+    else if (route === "book") {
+    
+    } else {
+
+    }
+}
+
+function Card({
     name,
     rating,
     genreList,
@@ -10,10 +65,10 @@ function AnimeCard({
     image,
     fullScreen = false,
     val,
+    currentRoute,
 }) {
-    const [imageLoaded, setImageLoaded] = useState(false);
-    console.log(val);
-    
+    const [imageLoaded, setImageLoaded] = useState(false); // Image Loader state
+    image = getImageLink(image, currentRoute); // sorting image url
 
     return (
         <div className={`card p-4 bg-white rounded shadow-md relative`}>
@@ -55,4 +110,4 @@ function AnimeCard({
     );
 }
 
-export default AnimeCard;
+export default Card;

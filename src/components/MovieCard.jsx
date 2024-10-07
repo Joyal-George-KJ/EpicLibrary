@@ -11,6 +11,7 @@ function MovieCard({
     val,
 }) {
     const [imageLoaded, setImageLoaded] = useState(false);
+    console.log(val);
 
     return (
         <div className={`card p-4 bg-white rounded shadow-md relative`}>
@@ -39,10 +40,9 @@ function MovieCard({
                     <p className="absolute top-6 left-6 drop-shadow rounded p-1 text-sm font-bold stroke-1 text-yellow-200">
                         {!rating ? "Rating" : rating.toFixed(1)}
                     </p>
-                    {genreList &&
-                        genreList.map((val, ind) => (
-                            <p key={ind}>{val.name}</p>
-                        ))}
+                    {fullScreen && val.genres.map((val, ind) => (
+                        <p key={ind}>{val.name}</p>
+                    ))}
                     {fullScreen && <p>{val.overview}</p>}
                 </div>
             </Link>

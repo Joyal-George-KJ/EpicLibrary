@@ -72,7 +72,7 @@ function setValues(value, route, fullDetails) {
                 id: value.id,
                 title: value.volumeInfo.title,
                 image: value.volumeInfo.imageLinks.smallThumbnail,
-                rating: value.volumeInfo.averageRating,
+                rating: value.volumeInfo.averageRating ? value.volumeInfo.averageRating : 0,
             };
         } else {
             return {};
@@ -102,7 +102,7 @@ function Card({ fullScreen = false, val, currentRoute }) {
                     className={
                         fullScreen === true
                             ? "w-1/6 object-contain"
-                            : "object-contain" +
+                            : "w-full object-contain" +
                               (!imageLoaded ? " hidden" : " block")
                     }
                 />

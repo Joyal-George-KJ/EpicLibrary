@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Image from "../assets/images/book.jpg";
 import { useParams } from "react-router-dom";
 import BookCard from "../components/BookCard";
+import Card from "../components/Card";
 
 function Books() {
     const { id } = useParams();
@@ -86,21 +87,16 @@ function Books() {
             >
                 {Array.isArray(data) ? (
                     data.map((val) => (
-                        <BookCard
-                            name={val.volumeInfo.title}
-                            rating={val.volumeInfo.averageRating}
-                            id={val.id}
-                            val={val.volumeInfo}
+                        <Card
+                            val={val}
                             key={val.id}
+                            currentRoute={"book"}
                         />
                     ))
                 ) : (
-                    <BookCard
-                        name={data.title_english}
-                        rating={data.score}
-                        image={data.images.jpg.image_url}
-                        id={id}
+                    <Card
                         val={data}
+                        currentRoute={"book"}
                         fullScreen={true}
                     />
                 )}

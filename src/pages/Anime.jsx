@@ -3,6 +3,7 @@ import Image from "../assets/images/anime.jpg";
 import AnimeCard from "../components/AnimeCard";
 import { useParams } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
+import Card from "../components/Card";
 
 function Anime() {
     const { id } = useParams();
@@ -31,7 +32,7 @@ function Anime() {
             ]);
 
             
-            console.log(movieRes);
+            // console.log(movieRes);
 
             // Set movie data
             setData(movieRes.data.slice(0, 10));
@@ -69,8 +70,6 @@ function Anime() {
                     </p>
                 </div>
             </div>
-            
-            <SearchBar />
 
             {/* Popular Anime */}
             {location.pathname === '/animes' && <p className="pt-4 text-xl font-medium text-center capitalize text-neutral-600">
@@ -81,22 +80,16 @@ function Anime() {
             <div className={`card-container py-4 grid  flex-wrap gap-4 justify-center ${!Array.isArray(data) ? 'grid-cols-1' : 'grid-cols-5'}`}>
                 {Array.isArray(data) ? (
                     data.map((val) => (
-                        <AnimeCard
-                            name={val.title_english}
-                            rating={val.score}
-                            image={val.images.jpg.image_url}
-                            id={val.mal_id}
+                        <Card
                             val={val}
                             key={val.mal_id}
+                            currentRoute={"anime"}
                         />
                     ))
                 ) : (
-                    <AnimeCard
-                        name={data.title_english}
-                        rating={data.score}
-                        image={data.images.jpg.image_url}
-                        id={id}
+                    <Card
                         val={data}
+                        currentRoute={"anime"}
                         fullScreen={true}
                     />
                 )}

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Image from "../assets/images/movie.jpg";
 import MovieCard from "../components/MovieCard";
 import { useParams } from "react-router-dom";
+import Card from "../components/Card";
 
 function Movie() {
     const { id } = useParams();
@@ -87,23 +88,17 @@ function Movie() {
             >
                 {Array.isArray(data) ? (
                     data.map((val) => (
-                        <MovieCard
-                            name={val.title}
-                            rating={val.vote_average}
-                            image={val.poster_path}
-                            id={val.id}
+                        <Card
                             val={val}
                             key={val.id}
+                            currentRoute={"movie"}
                         />
                     ))
                 ) : (
-                    <MovieCard
-                        name={data.title}
-                        rating={data.vote_average}
-                        image={data.poster_path}
-                        id={id}
+                    <Card
                         val={data}
                         fullScreen={true}
+                        currentRoute={"movie"}
                     />
                 )}
             </div>

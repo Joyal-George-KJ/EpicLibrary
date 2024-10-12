@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Image from "../assets/images/anime.jpg";
-import AnimeCard from "../components/AnimeCard";
 import { useParams } from "react-router-dom";
-import SearchBar from "../components/SearchBar";
 import Card from "../components/Card";
 
 function Anime() {
     const { id } = useParams();
     const [data, setData] = useState(null);
-    const [genre, setGenre] = useState(null);
     const [loading, setLoading] = useState(true);  // To manage loading state
     const [error, setError] = useState(null);      // To manage errors
 
@@ -23,20 +20,11 @@ function Anime() {
                 ? `https://api.jikan.moe/v4/anime/${id}`
                 : `https://api.jikan.moe/v4/top/anime`;
                 
-            const genreUrl = `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}`;
-
             // Fetch both movie and genre data concurrently
-            const [movieRes, genreRes] = await Promise.all([
-                fetch(movieUrl).then((res) => res.json()),
-                fetch(genreUrl).then((res) => res.json()),
-            ]);
-
-            
-            // console.log(movieRes);
+            const movieRes = await fetch(movieUrl).then(res => res.json());
 
             // Set movie data
-            setData(movieRes.data.slice(0, 10));
-            setGenre(genreRes.genres);
+            setData(movieRes.data);
         } catch (error) {
             setError("Failed to fetch data");
         } finally {

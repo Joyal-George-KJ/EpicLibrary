@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Image from "../assets/images/movie.jpg";
-import MovieCard from "../components/MovieCard";
 import { useParams } from "react-router-dom";
 import Card from "../components/Card";
 
 function Movie() {
     const { id } = useParams();
     const [data, setData] = useState(null);
-    const [genre, setGenre] = useState(null);
+    // const [genre, setGenre] = useState(null);
     const [loading, setLoading] = useState(true);  // To manage loading state
     const [error, setError] = useState(null);      // To manage errors
 
@@ -24,18 +23,14 @@ function Movie() {
                 ? `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}`
                 : `https://api.themoviedb.org/3/movie/popular?limit=10&api_key=${apiKey}`;
                 
-            const genreUrl = `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}`;
+            // const genreUrl = `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}`;
 
             // Fetch both movie and genre data concurrently
-            const [movieRes, genreRes] = await Promise.all([
-                fetch(movieUrl).then((res) => res.json()),
-                fetch(genreUrl).then((res) => res.json()),
-            ]);
+            const movieRes = await fetch(movieUrl).then((res) => res.json());
 
             console.log(movieRes)
             // Set movie data
             setData(id ? movieRes : movieRes.results.slice(0, 10));
-            setGenre(genreRes.genres);
         } catch (error) {
             setError("Failed to fetch data");
         } finally {

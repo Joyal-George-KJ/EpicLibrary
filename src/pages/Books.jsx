@@ -19,8 +19,8 @@ function Books() {
             setLoading(true); // Start loading
 
             const movieUrl = id
-                ? `https://api.jikan.moe/v4/anime/${id}`
-                : `https://www.googleapis.com/books/v1/volumes?q=trendingbooks&${'key=' + apiKey}`;
+                ? `https://www.googleapis.com/books/v1/volumes/${id}?key=${apiKey}`
+                : `https://www.googleapis.com/books/v1/volumes?q=trendingbooks&key=${apiKey}`;
 
                 console.log(movieUrl);
                 
@@ -30,10 +30,8 @@ function Books() {
             // Fetch both movie and genre data concurrently
             const movieRes = await fetch(movieUrl).then((res) => res.json())
 
-            console.log(movieRes.items[1]);
-
             // Set movie data
-            setData(movieRes.items);
+            setData(id ? movieRes : movieRes.items);
             // setGenre(genreRes.genres);
         } catch (error) {
             setError("Failed to fetch data");

@@ -13,15 +13,15 @@ function App() {
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route index element={<Home/>} />
-          <Route path='/movies/:id' element={<Movie />} />
+          <Route path='/movie/:id' element={<Movie />} />
           <Route path='/series/:id' element={<Series />} />
-          <Route path='/animes/:id' element={<Anime />} />
-          <Route path='/books/:id' element={<Books />} />
+          <Route path='/anime/:id' element={<Anime />} />
+          <Route path='/book/:id' element={<Books />} />
           
-          <Route path='/movies' element={<Movie />} />
+          <Route path='/movie' element={<Movie />} />
           <Route path='/series' element={<Series />} />
-          <Route path='/animes' element={<Anime />} />
-          <Route path='/books' element={<Books />} />
+          <Route path='/anime' element={<Anime />} />
+          <Route path='/book' element={<Books />} />
         </Route>
         
       </Routes>

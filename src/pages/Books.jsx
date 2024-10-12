@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Image from "../assets/images/book.jpg";
 import { useParams } from "react-router-dom";
-import BookCard from "../components/BookCard";
 import Card from "../components/Card";
 
 function Books() {
@@ -21,9 +20,6 @@ function Books() {
             const movieUrl = id
                 ? `https://www.googleapis.com/books/v1/volumes/${id}?key=${apiKey}`
                 : `https://www.googleapis.com/books/v1/volumes?q=trendingbooks&key=${apiKey}`;
-
-                console.log(movieUrl);
-                
 
             // const genreUrl = `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}`;
 

@@ -4,7 +4,6 @@ import RatingStarImage from "../assets/images/star.png";
 import TitleDescription from "./TItleDescription";
 
 function setValues(value, route, fullDetails) {
-    console.log(`${typeof value}: ${route}: ${fullDetails}`);
 
     if (fullDetails) {
         if (route === "movie") {
@@ -20,7 +19,7 @@ function setValues(value, route, fullDetails) {
                 release_date: value.release_date,
                 homepage: value.homepage,
                 restricted: value.adult,
-                rating: value.vote_average.toFixed(1),
+                rating: `${value.vote_average.toFixed(1)} (${value.vote_count})`,
                 duration: `${value.runtime} min`,
                 cast: [],
                 trailer: value.trailer,
@@ -28,7 +27,7 @@ function setValues(value, route, fullDetails) {
             };
         } else if (route === "anime") {
             let formatedDate = new Date(value.aired.to);
-
+            
             return {
                 id: value.id,
                 title: `${value.title_english}: ${value.title}`,
@@ -48,11 +47,31 @@ function setValues(value, route, fullDetails) {
                 producers: value.producers,
             };
         } else if (route === "series") {
+            return {
+                id: value.id,
+                title: value.name,
+                description: value.overview,
+                image: `https://image.tmdb.org/t/p/original/${value.poster_path}`,
+                genre: value.genres,
+                budget: value.budget,
+                language: value.spoken_languages,
+                seasons: value.number_of_seasons,
+                episodes: value.number_of_episodes,
+                status: value.status === "Released" ? "Finished" : "Production",
+                aired: `${value.first_air_date} - ${value.last_air_date}`,
+                homepage: value.homepage,
+                restricted: value.adult,
+                rating: `${value.vote_average.toFixed(1)} (${value.vote_count})`,
+                duration: `${value.episode_run_time[0]} min`,
+                cast: [],
+                trailer: value.trailer,
+                producers: value.production_companies,
+            };
         } else if (route === "book") {
             return {
                 id: value.id,
                 title: `${value.volumeInfo.title}: ${value.volumeInfo.subtitle}`,
-                description: value.volumeInfo.description,
+                description: value.volumeInfo.description.replace(/<[^>]*>/g, ''),
                 genre: value.volumeInfo.categories,
                 budget: null,
                 language: value.volumeInfo.language,
@@ -84,7 +103,12 @@ function setValues(value, route, fullDetails) {
                 rating: value.score,
             };
         } else if (route === "series") {
-            return {};
+            return {
+                id: value.id,
+                title: value.name,
+                image: `https://image.tmdb.org/t/p/original/${value.poster_path}`,
+                rating: value.vote_average,
+            };
         } else if (route === "book") {
             return {
                 id: value.id,
@@ -104,7 +128,6 @@ function Card({ fullScreen = false, val, currentRoute }) {
     const [imageLoaded, setImageLoaded] = useState(false); // Image Loader state
     let cardData = setValues(val, currentRoute, fullScreen); // sorting incomming data
     console.log(cardData);
-    
 
     if (fullScreen) {
         return (
@@ -141,7 +164,7 @@ function Card({ fullScreen = false, val, currentRoute }) {
     return (
         <div className={`card p-4 bg-white rounded shadow-md relative`}>
             <Link
-                to={`/${currentRoute}s/${cardData.id}`}
+                to={`/${currentRoute}/${cardData.id}`}
                 className={fullScreen ? " flex gap-4" : ""}
             >
                 {!imageLoaded && (

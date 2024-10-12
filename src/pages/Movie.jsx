@@ -12,8 +12,6 @@ function Movie() {
 
     const apiKey = "5c73e52471391dd621f2a42649f53cec";
 
-    console.log(id);
-    
     // Fetch data
     const fetchData = async () => {
         try {
@@ -28,7 +26,6 @@ function Movie() {
             // Fetch both movie and genre data concurrently
             const movieRes = await fetch(movieUrl).then((res) => res.json());
 
-            console.log(movieRes)
             // Set movie data
             setData(id ? movieRes : movieRes.results.slice(0, 10));
         } catch (error) {

@@ -41,8 +41,9 @@ function TitleDescription({ title, values }) {
                     </p>
                 </div>
                 {values?.map((value, index) => (
-                    <p className={title === 'genre' && 'border-2 px-4 py-2 rounded'} key={index}>
-                        {value?.name ? value.name : value}
+                    <p className={title === 'genre' ? 'border-2 px-4 py-2 rounded cursor-pointer' : ""} key={index}>
+                        {value.name ? value.name : (value.english_name ? value.english_name : value)}
+                        {title === 'language' && values.length > 1 && index !== values.length - 1 && ','  /* gives a comma after every language if there are multiple languages */}
                     </p>
                 ))}
             </div>

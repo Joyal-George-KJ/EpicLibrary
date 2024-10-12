@@ -11,13 +11,13 @@ function Navbar() {
                 </Link>
                 <Link
                     className="font-medium text-lg text-neutral-700"
-                    to={"/animes"}
+                    to={"/anime"}
                 >
                     Anime
                 </Link>
                 <Link
                     className="font-medium text-lg text-neutral-700"
-                    to={"/movies"}
+                    to={"/movie"}
                 >
                     Movie
                 </Link>
@@ -29,7 +29,7 @@ function Navbar() {
                 </Link>
                 <Link
                     className="font-medium text-lg text-neutral-700"
-                    to={"/books"}
+                    to={"/book"}
                 >
                     Book
                 </Link>

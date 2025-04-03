@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import RatingStarImage from "../assets/images/star.png";
-import TitleDescription from "./TItleDescription";
+import TitleDescription from "./TitleDescription";
 
 function setValues(value, route, fullDetails) {
 

@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import Card from "../components/Card";
 import Image from "../assets/images/series.png";
 import { Helmet } from "react-helmet-async";
+import Loader from "../components/Loader";
+import ErrorPage from "../components/ErrorPage";
 
 function Series() {
     const { id } = useParams();
@@ -23,6 +25,7 @@ function Series() {
             const json = await res.json();
             setData(id ? json : json.results.slice(0, 10));
         } catch (err) {
+            setLoading(false);
             setError("Failed to load series");
         } finally {
             setLoading(false);
@@ -32,6 +35,9 @@ function Series() {
     useEffect(() => {
         fetchData();
     }, [id]);
+
+    if(loading) return <Loader />;
+    if(error) return <ErrorPage message={error} />;
 
     return (
         <div className="flex flex-col p-4">
@@ -50,8 +56,6 @@ function Series() {
 
             <h3 className="text-xl font-semibold text-center pt-6">Popular Series</h3>
             <div className={`grid gap-4 py-6 ${!Array.isArray(data) ? "grid-cols-1" : "laptop:grid-cols-5 mobile:grid-cols-1"}`}>
-                {loading && <p className="text-center">Loading...</p>}
-                {error && <p className="text-center text-red-500">{error}</p>}
                 {!loading && !error && Array.isArray(data) ? (
                     data.map(val => (
                         <Card key={val.id} val={val} currentRoute="series" />

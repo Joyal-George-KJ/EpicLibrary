@@ -18,7 +18,7 @@ function Home() {
                     <span className="font-semibold text-purple-500 dark:text-purple-400">books</span> — all in one epic place!
                 </p>
 
-                <div className="flex flex-wrap justify-center gap-4 mt-6">
+                <div className="laptop:flex mobile:grid justify-center gap-4 mt-6">
                     <Link
                         to="/explore"
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg shadow transition"
